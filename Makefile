@@ -1,103 +1,51 @@
+# NAME = cub3D
+
+# SRC = *.c
+
+# LIB = minilibx/libmlx.a
 
 
-#CFLAGS =			-Wall -Wextra -Werror -g -fsanitize=address
-CFLAGS =			-g -fsanitize=address
+# OBJ = $(SRC:.c=.o)
 
-HDRS =				minirt.h
+# MINILIB = -framework OpenGL -framework AppKit
 
-HDRS_DIR =			./includes/
+# %.o: %.c
+# 	gcc  -Wall -Werror -Wextra -g -I /usr/local/include -c $< -o $@
 
-CC =				cc
+# all: $(NAME)
 
-#BONUSDIR =			bonus/
+# $(NAME): $(OBJ)
+# 		$(MAKE) -C minilibx/
+# 		gcc -Wall -Werror -Wextra -g $(OBJ) -I /usr/local/include $(LIB) $(MINILIB) -o $(NAME)
 
-#BONUS =				$(addprefix ${BONUSDIR}, minirt)
+# clean:
+# 		make -C minilibx clean
+# 		rm -rf $(OBJ)
 
-RM =				rm -rf
+# fclean: clean
+# 		make -C minilibx clean
+# 		rm -rf $(NAME)
 
-NAME =				minirt
+# re : fclean all
+FRAEMWORKS=-framework OpenGL -framework AppKit
+FLAGS=-Werror -Wextra -Wall
+NAME=cub3D
+SRC=*.c
+INCLUDES=libft/libft.a MLX/libmlx.a
 
-SRC = *.c
-# SRC =				main.c parser/parser.c gnl/get_next_line_utils_bonus.c gnl/get_next_line_bonus.c\
-# 					utils/utils.c utils/utils2.c utils/vector.c light/ray_tracing.c light/light_computing.c\
-# 					light/reflection.c
-
-SRC_DIR =			./src/
-
-HEADERS =			$(addprefix ${HDRS_DIR}, ${HDRS})
-
-SOURCES =			$(addprefix ${SRC_DIR}, ${SRC})
-
-BUILDIR = 			./obj/
-
-BUILDIRS =			echo/ cd/ env/ pwd/ utils/ pipex/ exec/ parser/ export/ exit/ libft/
-
-BLDRS =				$(addprefix ${BUILDIR}, ${BUILDIRS})
-
-OBJS =				$(addprefix ${BUILDIR}, ${SRC:.c=.o})
-
-LIBFT_NAME =		libft.a
-
-LIBFTDIR =			./libft/
-
-LIBFT =				$(addprefix ${LIBFTDIR}, ${LIBFT_NAME})
-
-MLX_NAME =			libmlx.a
-
-MLXDIR =			./mlx/
-
-MLX =				$(addprefix ${MLXDIR}, ${MLX_NAME})
-
-INCLUDE = 			-I./mlx -I./includes -I./libft
-
-LIBS = 				-L./mlx/ -lmlx -lm -L./libft/ -lft -framework OpenGL -framework AppKit
-
-ifeq (${MAKECMDGOALS}, l)
-LIBS =				-L./libft -lft -Lmlx -L/usr/lib -Imlx -lXext -lX11 -lm
-MLXDIR =			./mlx_linux/
-CFLAGS =			-Wall -Wextra -Werror -g -fsanitize=address -D LINUX=1
-endif
-
-.PHONY:				clean all fclean re
-
-all:				${BUILDIR} ${BLDRS} ${LIBFT} ${MLX} ${NAME}
-
-l:					all
-
-${LIBFT}:
-					${MAKE} -C ${LIBFTDIR}
-
-${MLX}:
-					${MAKE} -C ${MLXDIR}
-
-${NAME}:			${HEADERS} Makefile ${SOURCES}
-					${CC} ${INCLUDE} ${CFLAGS} ${SOURCES} ${LIBS} ${MLX} -o $@
-
-${BUILDIR}:
-					mkdir -p $@
-
-${BLDRS}:
-					mkdir -p $@
-
-${BUILDIR}%.o:		${SRC_DIR}%.c ${HEADERS} Makefile
-					${CC} ${INCLUDE} -c ${CFLAGS} $< -o $@
-#
-#bonus:				${BONUS}
-#
-#${BONUS}:
-#					${MAKE} -C ${BONUSDIR}
+all:
+	@make -C libft/ all
+	@make -C MLX/
+	@gcc $(SRC) -o $(NAME) $(FLAGS) $(INCLUDES) $(FRAEMWORKS)
 
 clean:
-					#${MAKE} clean -C ${BONUSDIR}
-					${MAKE} clean -C ${LIBFTDIR}
-					${MAKE} clean -C ${MLXDIR}
-					${RM} ${BUILDIR}
+	@make -C libft/ clean
+	@make -C MLX/ clean
 
-fclean:				clean
-					${MAKE} fclean -C ${LIBFTDIR}
-					#${MAKE} fclean -C ${BONUSDIR}
-					${RM} ${NAME}
+fclean: clean
+	@/bin/rm -f $(NAME)
+	@make -C libft/ fclean
 
-re:					fclean all
+re: fclean all
 
-rel:				fclean l
+.PHONY: all clean fclean re bonus
