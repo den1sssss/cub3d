@@ -31,14 +31,19 @@ typedef struct game
 
 
 //gnl
-int		ft_strlenn(char *str);
-int		indexkek(char *str);
-char	*ft_strdupp(char *str);
-char	*ft_strjoinn(char *str, char *kek);
-char	*perdelstr(char *str);
-char	*ostatok(char *str, int fd);
-char	*strochka(char *str);
-char	*get_next_line(int fd);
+// int		ft_strlenn(char *str);
+// int		indexkek(char *str);
+// char	*ft_strdupp(char *str);
+// char	*ft_strjoinn(char *str, char *kek);
+// char	*perdelstr(char *str);
+// char	*ostatok(char *str, int fd);
+// char	*strochka(char *str);
+// char	*get_next_line(int fd);
+int		get_next_line(int fd, char **line);
+// char	*cut_next_line(char *line);
+// char	*push_line(char *line);
+// int		check_line_break(char *str);
+
 //validation.c
 int validation(int argc,char **argv);
 int	**getmap(char *file, char **str);
