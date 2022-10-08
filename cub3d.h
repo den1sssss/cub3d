@@ -10,10 +10,24 @@
 
 #  define BUFFER_SIZE 1
 
+// typedef struct game
+// {
+//     int **map;
+// } t_game;
 typedef struct game
 {
-    int **map;
-} t_game;
+    char    plr_ch;
+    int     plr_x;
+    int     plr_y;
+    char	*n;
+    char	*s;
+    char	*w;
+    char	*e;
+    char    *file;
+    int		bottom;
+    int		top;
+    char	**map;
+}	t_game;
 
 
 //gnl
@@ -30,6 +44,12 @@ int validation(int argc,char **argv);
 int	**getmap(char *file, char **str);
 int	getwidth(char *file);
 int	getheight(char *file);
+//denispart.c
+void denispart(t_game *game,char **argv);
+void	init_data(t_game *game);
+void read_file(t_game *game,char *argv);
+
+//parse.c
 
 
 #endif
