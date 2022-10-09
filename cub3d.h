@@ -55,6 +55,7 @@ void	init_data(t_game *game);
 void read_file(t_game *game,char *argv);
 
 //parse.c
+void parse(t_game *game);
 
 
 #endif
