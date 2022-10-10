@@ -16,8 +16,8 @@ void free_exit(t_game *game)
 }
 void	init_data(t_game *game)
 {
-	game->top = -10;
-	game->bottom = -10;
+	game->top = NULL;
+	game->bottom = NULL;
 	game->file = NULL;
 	game->map = NULL;
 	game->e = NULL;

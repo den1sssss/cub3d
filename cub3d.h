@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include "libft/libft.h"
 
-#  define BUFFER_SIZE 1
+// #  define BUFFER_SIZE 1
 
 // typedef struct game
 // {
@@ -24,8 +24,8 @@ typedef struct game
     char	*w;
     char	*e;
     char    *file;
-    int		bottom;
-    int		top;
+    char    *bottom;
+    char    *top;
     char	**map;
 }	t_game;
 
@@ -55,7 +55,12 @@ void	init_data(t_game *game);
 void read_file(t_game *game,char *argv);
 
 //parse.c
-void parse(t_game *game);
-
+void    parse(t_game *game);
+int     is_complete(t_game *game);
+void get_params(int *i, t_game *game);
+// void check_data(t_game *game);
+// void read_map(int i,game);
+int check_param_value(char *target,int i,t_game *game);
+void parse_param_value();
 
 #endif
