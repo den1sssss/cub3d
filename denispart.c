@@ -25,10 +25,34 @@ void	init_data(t_game *game)
 	game->s = NULL;
 	game->w = NULL;
 }
-// void init_player(t_game *game)
-// {
+int is_player(char c)
+{
+	return(c == 'N' || c == 'E' || c == 'W' || c == 'E');
+}
+void player_position(t_game *game)
+{
+	int i;
+	int j;
 
-// }
+	i = 0;
+	while(game->map[i])
+	{
+		j = 0;
+		while(game->map[i][j])
+		{
+			if (is_player(game->map[i][j]))
+			{
+				game->plr_ch = game->map[i][j];
+				game->plr_x = j;
+				game->plr_y = i;
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 // void parse_data(t_game *game)
 // {
 
@@ -73,7 +97,10 @@ void denispart(t_game *game,char **argv)
 	read_file(game, argv[1]);
     //
 	parse(game);
-	// init_player(game);	
+	player_position(game);
+	printf("\nplr_ch = %c",game->plr_ch);
+	printf("\nplr_x = %d",game->plr_x);
+	printf("\nplr_y = %d",game->plr_y);
     // printf("Player position: %d %d\n", game->plr_x, game->plr_y);
 	// int i;
 

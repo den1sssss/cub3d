@@ -123,7 +123,7 @@ void parse(t_game *game)
     printf("w = %s\n",game->w);
     printf("e = %s\n",game->e);
     printf("bottom = %s\n",game->bottom);
-    printf("floor = %s\n",game->top);
+    printf("top= %s\n",game->top);
 
 	// check_data(game);
 	parse_map(i, game);
