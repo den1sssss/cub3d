@@ -59,8 +59,8 @@ void    parse(t_game *game);
 int     is_complete(t_game *game);
 void get_params(int *i, t_game *game);
 // void check_data(t_game *game);
-// void read_map(int i,game);
-int check_param_value(char *target,int i,t_game *game);
+void parse_map(int i,t_game *game);
+int check_param_value(char *target,int i,t_game *game, int flag);
 void parse_param_value();
 
 #endif
