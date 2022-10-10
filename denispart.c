@@ -11,8 +11,7 @@ void free_exit(t_game *game)
 		free(game->map);
 	}
 	free(game);
-	write(2, "Error: problem with fd\n", 24);
-	exit(0);
+	print_error("Error: problem with fd or permission\n");
 }
 void	init_data(t_game *game)
 {

@@ -3,10 +3,44 @@
 // {
 
 // }
-// void check_data(t_game *game)
-// {
+int	check_extention(t_game *game)
+{
+	if (ft_strncmp(&game->e[ft_strlen(game->e) - 4], ".xpm", 4))
+		return (1);
+	if (ft_strncmp(&game->n[ft_strlen(game->n) - 4], ".xpm", 4))
+		return (1);
+	if (ft_strncmp(&game->s[ft_strlen(game->s) - 4], ".xpm", 4))
+		return (1);
+	if (ft_strncmp(&game->w[ft_strlen(game->w) - 4], ".xpm", 4))
+		return (1);
+	return (0);
+}
+void check_permission(t_game *game)
+{
+    int fd;
 
-// }
+    fd = open(game->n,O_RDONLY);
+    if(fd == -1)
+        error_and_close("Error: dont have a permission to read or open or wrong path\n",fd);
+    fd = open(game->e,O_RDONLY);
+    if(fd == -1)
+        error_and_close("Error: dont have a permission to read or open or wrong path\n",fd);
+    fd = open(game->s,O_RDONLY);
+    if(fd == -1)
+        error_and_close("Error: dont have a permission to read or open or wrong path\n",fd);
+    fd = open(game->w,O_RDONLY);
+    if(fd == -1)
+        error_and_close("Error: dont have a permission to read or open or wrong path\n",fd);
+}
+
+void check_params(t_game *game)
+{
+	if (game->e == NULL || game->n == NULL || game->s == NULL || game->w == NULL)
+        print_error("Error: blank parameter\n");
+    if(check_extention(game))
+        print_error("Error: wrong extention\n");
+    // check_permission(game); // раскомментить потом
+}
 //get_params
 void parse_param_value(char **param,int *i,t_game *game)
 {
@@ -14,20 +48,14 @@ void parse_param_value(char **param,int *i,t_game *game)
 
 	pos = 0;
 	if (*param)
-	{
-		write(1, "Error: parameter already exists\n", 32);
-		exit(0);
-	}
+        print_error("Error: parameter already exists\n");
 	while (game->file[*i] && (game->file[*i] == ' ' || game->file[*i] == '\t'))
 		(*i)++;
 	pos = *i;
 	while (game->file[*i] && game->file[*i] != ' ' && game->file[*i] != '\n' && game->file[*i] != '\t')
 		(*i)++;
 	if (pos == (*i))
-	{
-        printf("Parse_param_value error\n");
-		exit(0);
-	}
+        print_error("Parse_param_value error\n");
 	*param = ft_substr(game->file, pos, (*i) - pos);
 }
 int check_param_value(char *target,int i,t_game *game, int flag)
@@ -39,10 +67,7 @@ int check_param_value(char *target,int i,t_game *game, int flag)
             if (game->file[i + 2] == ' ' || game->file[i + 2] == '\t')
                 return (1);
             else
-            {
-                printf("Value parse error\n");
-                exit(0);
-            }
+                print_error("Value parse error\n");
         }
     }
     else if(flag == 0)
@@ -52,10 +77,7 @@ int check_param_value(char *target,int i,t_game *game, int flag)
             if (game->file[i + 1] == ' ' || game->file[i + 1] == '\t')
                 return (1);
             else
-            {
-                printf("Color parse error\n");
-                exit(0);
-            }
+                print_error("Color parse error\n");
         }
     }
     return (0);
@@ -117,6 +139,7 @@ void parse(t_game *game)
 		get_params(&i, game);
 		i++;
 	}
+    check_params(game);
     printf("Parse results:\n");
     printf("n = %s\n",game->n);
     printf("s = %s\n",game->s);
@@ -124,8 +147,6 @@ void parse(t_game *game)
     printf("e = %s\n",game->e);
     printf("bottom = %s\n",game->bottom);
     printf("top= %s\n",game->top);
-
-	// check_data(game);
 	parse_map(i, game);
 
 }

@@ -10,10 +10,6 @@
 
 // #  define BUFFER_SIZE 1
 
-// typedef struct game
-// {
-//     int **map;
-// } t_game;
 typedef struct game
 {
     char    plr_ch;
@@ -60,13 +56,21 @@ int is_player(char c);
 void    parse(t_game *game);
 int     is_complete(t_game *game);
 void get_params(int *i, t_game *game);
-// void check_data(t_game *game);
+void check_params(t_game *game);
 int check_param_value(char *target,int i,t_game *game, int flag);
 void parse_param_value();
+int	check_extention(t_game *game);
+void check_permission(t_game *game);
 
 //parse_map.c
 int get_map_size(int i, t_game *game);
 void parse_map(int i,t_game *game);
 int	check_n(int i, t_game *game, char **map_elem);
+//
+
+
+//main.c
+void print_error(char *str);
+void error_and_close(char *str,int fd);
 
 #endif
