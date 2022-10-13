@@ -41,10 +41,15 @@ int		get_next_line(int fd, char **line);
 // int		check_line_break(char *str);
 
 //validation.c
-int validation(int argc,char **argv);
-int	**getmap(char *file, char **str);
-int	getwidth(char *file);
-int	getheight(char *file);
+void validation(t_game *game);
+int is_space_or_tab(char a, int check);
+void	check_error(t_game *game, int j, int i);
+void	check_first_last_string(int j, t_game *game);
+// void map_validation(t_game *game);
+// int	**getmap(char *file, char **str);
+// int	getwidth(char *file);
+// int	getheight(char *file);
+
 //denispart.c
 void denispart(t_game *game,char **argv);
 void	init_data(t_game *game);

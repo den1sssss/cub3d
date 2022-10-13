@@ -96,6 +96,9 @@ void denispart(t_game *game,char **argv)
 	read_file(game, argv[1]);
     //
 	parse(game);
+	//validation is in progress...
+	validation(game);
+	//
 	player_position(game);
 	printf("\nplr_ch = %c",game->plr_ch);
 	printf("\nplr_x = %d",game->plr_x);

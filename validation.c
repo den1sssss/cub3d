@@ -1,74 +1,76 @@
-// #include "cub3d.h"
-// int	getheight(char *file)
-// {
-// 	int		height;
-// 	int		fd;
-// 	char	*str;
+#include "cub3d.h"
 
-// 	height = 0;
-// 	str = NULL;
-// 	fd = open(file, O_RDONLY);
-// 	str = get_next_line(fd);
-// 	while (str != NULL)
-// 	{
-// 		height++;
-// 		free(str);
-// 		str = get_next_line(fd);
-// 	}
-// 	close(fd);
-// 	return (height);
-// }
+void	check_first_last_string(int j, t_game *game)
+{
+	int	i;
 
-// int	getwidth(char *file)
-// {
-// 	char	*arr;
-// 	int		fd;
-// 	int		i;
-// 	int		words;
+	i = 0;
+	while (game->map[j][i])
+	{
+		if (game->map[j][i] != '1' && is_space_or_tab(game->map[j][i], 1))
+            print_error("Error: parameters problem[1]\n");
+		i++;
+	}
+}
+void	check_error(t_game *game, int j, int i)
+{
+	while (game->map[j][i])
+	{
+		if (game->map[j][i] && game->map[j][i] != '0'
+			&& game->map[j][i] != '1' && is_space_or_tab(game->map[j][i], 1)
+			&& !is_player(game->map[j][i]))
+            print_error("Error: map error\n");
+		if (game->map[j][i] == '0')
+		{
+			if ((game->map[j - 1] && ft_strlen(game->map[j - 1]) < (size_t)i)
+				|| (game->map[j - 1][i] && is_space_or_tab(game->map[j - 1][i], 0)))
+		            print_error("Error: map error\n");
+			if ((game->map[j + 1] && ft_strlen(game->map[j + 1]) < (size_t)i)
+				|| (game->map[j + 1][i] && is_space_or_tab(game->map[j + 1][i], 0)))
+	            print_error("Error: map error\n");
+		}
+		if (game->map[j][i] && is_player(game->map[j][i]) && !game->plr_ch)
+			game->plr_ch = game->map[j][i];
+		else if (game->map[j][i] && is_player(game->map[j][i]) && game->plr_ch)
+            print_error("Error: map error\n");
+		i++;
+		if ((is_space_or_tab(game->map[j][i], 0) || game->map[j][i] == '\n'
+			|| game->map[j][i] == '\0') && (game->map[j][i - 1] != '1'
+			&& is_space_or_tab(game->map[j][i - 1], 1)))
+            print_error("Error: map error\n");
+	}
+}
+int	is_space_or_tab(char a, int check)
+{
+	if (check)
+		return (a != ' ' && a != '\t');
+	return (a == ' ' || a == '\t');
+}
+void validation(t_game *game)
+{
+    int	i;
+	int	j;
 
-// 	fd = open(file, O_RDONLY);
-// 	arr = get_next_line(fd);
-// 	words = 0;
-// 	i = 0;
-// 	while (arr[i])
-// 	{
-// 		while (arr[i] == ' ' && arr[i])
-// 			i++;
-// 		if (arr[i])
-// 			words++;
-// 		while (arr[i] != ' ' && arr[i])
-// 			i++;
-// 	}
-// 	close(fd);
-// 	return (words);
-// }
-
-// int	**getmap(char *file, char **str)
-// {
-// 	int		i;
-// 	int		j;
-// 	int		fd;
-// 	int		**map;
-// 	int		*massiv;
-
-// 	fd = open(file, O_RDONLY);
-// 	i = 0;
-// 	map = (int **)malloc(sizeof(int *) * getheight(file));
-// 	while (i < getheight(file))
-// 	{
-// 		map[i] = (int *)malloc(sizeof(int) * getwidth(file));
-// 		str = ft_split(get_next_line(fd), ' ');
-// 		j = 0;
-// 		massiv = map[i];
-// 		while (str[++j])
-// 			massiv[j] = ft_atoi(str[j]);
-// 		i++;
-// 	}
-// 	return (map);
-// }
-// int validation(int argc,char **argv)
-// {
-//     if(argc && argv)
-//         return(1);
-//     return (0);
-// }
+	j = 1;
+	check_first_last_string(0, game);
+	while (game->map[j])
+	{
+		i = 0;
+		while (game->map[j][i] && is_space_or_tab(game->map[j][i], 0))
+			i++;
+		if (i == 0 && game->map[j][i] == '\0')
+            print_error("Error: parameters problem[2]\n");
+		if (game->map[j][i] && game->map[j][i] != '1')
+            print_error("Error: map is open\n");
+		check_error(game, j, i);
+		j++;
+		if (!game->map[j + 1])
+		{
+			check_first_last_string(j, game);
+			break ;
+		}
+	}
+	if (!game->plr_ch)
+        print_error("Error: no player position\n");
+    printf("MAP IS CORRECT!\n");
+}

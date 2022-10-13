@@ -148,5 +148,6 @@ void parse(t_game *game)
     printf("bottom = %s\n",game->bottom);
     printf("top= %s\n",game->top);
 	parse_map(i, game);
+    
 
 }
