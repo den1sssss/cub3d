@@ -1,4 +1,25 @@
 #include "cub3d.h"
+int get_max_width(t_game *game)
+{
+	int width;
+	int i;
+	int j;
+
+	width = 0;
+	i = 0;
+	while(game->map[i])
+	{
+		j = 0;
+		while(game->map[i][j])
+		{
+			if(game->map[i][j] == '1' && j > width)
+				width = j;
+			j++;
+		}
+		i++;
+	}
+	return(width);
+}
 int	check_n(int i, t_game *game, char **map_elem)
 {
 	int	start;
@@ -39,7 +60,8 @@ void parse_map(int i, t_game * game)
 	}
 	save_i = i;
 	size = get_map_size(i, game);
-    printf("SIZE = %d",size);
+	game->max_height = size;
+    printf("MAX_HEIGHT = %d\n",game->max_height);
 	i = save_i;
 	game->map = (char **)malloc(sizeof(char *) * (size + 2));
 	while (i > 0 && game->file[i - 1] != '\n')
@@ -51,6 +73,8 @@ void parse_map(int i, t_game * game)
 	}
 	//!!!suka
 	game->map[j] = NULL;
+	game->max_width = get_max_width(game);
+	printf("MAX_WIDTH = %d",game->max_width);
 	//
 	printf("\n------MAP-----\n");
 	for(i = 0; i <= size; i++)

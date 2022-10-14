@@ -25,6 +25,8 @@ typedef struct game
     int     floor;//new
     int     ceiling;//new
     char	**map;
+    int     max_height;
+    int     max_width;
 }	t_game;
 
 
@@ -74,6 +76,7 @@ void check_permission(t_game *game);
 int get_map_size(int i, t_game *game);
 void parse_map(int i,t_game *game);
 int	check_n(int i, t_game *game, char **map_elem);
+int get_max_width(t_game *game);
 //
 //check_color.c
 void check_color(t_game *game, char *str, char color);
