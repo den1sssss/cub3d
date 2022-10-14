@@ -1,9 +1,9 @@
-                        NO                         ./textures/n.xpm
-SO ./textures/s.xpm
+                        NO                         ./../textures/eagle.xpm
+SO ./../textures/bricks.xpm
 
-        WE ./textures/w.xpm
+        WE ../textures/composter.xpm
 
-EA ./textures/e.xpm
+EA ./../textures/grass.xpm
 
 F 220,100,0
 

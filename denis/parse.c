@@ -39,7 +39,7 @@ void check_params(t_game *game)
         print_error("Error: blank parameter\n");
     if(check_extention(game))
         print_error("Error: wrong extention\n");
-    check_permission(game); // раскомментить потом
+    // check_permission(game); // раскомментить потом
 }
 //get_params
 void parse_param_value(char **param,int *i,t_game *game)
@@ -148,6 +148,5 @@ void parse(t_game *game)
     printf("bottom = %s\n",game->bottom);
     printf("top= %s\n",game->top);
 	parse_map(i, game);
-    
 
 }

@@ -28,15 +28,20 @@
 
 # re : fclean all
 FRAEMWORKS=-framework OpenGL -framework AppKit
-FLAGS=
+FLAGS=-Werror -Wextra -Wall
 NAME=cub3D
 SRC=*.c
 INCLUDES=libft/libft.a MLX/libmlx.a
 
 all:
-	gcc $(SRC) -o $(NAME) $(FLAGS) $(INCLUDES) $(FRAEMWORKS)
+	@make -C libft/ all
+	@make -C MLX/
+	@gcc $(SRC) -o $(NAME) $(FLAGS) $(INCLUDES) $(FRAEMWORKS)
 
 clean:
+	rm -rf *.o
+
+fclean: clean
 	@/bin/rm -f $(NAME)
 
 re: fclean all

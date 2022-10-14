@@ -47,13 +47,11 @@ void parse_map(int i, t_game * game)
 		i = check_n(i, game, &game->map[j]);
 		++j;
 	}
-	//!!!suka
-	game->map[j] = NULL;
+	// game->map[j] = NULL;
 	//
 	printf("\n------MAP-----\n");
-	for(i = 0; i <= size; i++)
+	for(i = 0; i < size; i++)
 		printf("%s\n",game->map[i]);
-	// printf("%s",game->map[size]);
 	printf("------MAP-----\n");
 	//
 }
