@@ -4,7 +4,7 @@
 // 	int		height;
 // 	int		fd;
 // 	char	*str;
-
+//
 // 	height = 0;
 // 	str = NULL;
 // 	fd = open(file, O_RDONLY);
@@ -18,14 +18,14 @@
 // 	close(fd);
 // 	return (height);
 // }
-
+//
 // int	getwidth(char *file)
 // {
 // 	char	*arr;
 // 	int		fd;
 // 	int		i;
 // 	int		words;
-
+//
 // 	fd = open(file, O_RDONLY);
 // 	arr = get_next_line(fd);
 // 	words = 0;
@@ -42,7 +42,7 @@
 // 	close(fd);
 // 	return (words);
 // }
-
+//
 // int	**getmap(char *file, char **str)
 // {
 // 	int		i;
@@ -50,7 +50,7 @@
 // 	int		fd;
 // 	int		**map;
 // 	int		*massiv;
-
+//
 // 	fd = open(file, O_RDONLY);
 // 	i = 0;
 // 	map = (int **)malloc(sizeof(int *) * getheight(file));

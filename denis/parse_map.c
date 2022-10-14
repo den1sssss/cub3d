@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../cub3d.h"
 int	check_n(int i, t_game *game, char **map_elem)
 {
 	int	start;

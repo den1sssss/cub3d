@@ -1,6 +1,6 @@
 # NAME = cub3D
 
-# SRC = *.c
+# SRC = *.c 
 
 # LIB = minilibx/libmlx.a
 
@@ -34,7 +34,9 @@ SRC=*.c
 INCLUDES=libft/libft.a MLX/libmlx.a
 
 all:
-	gcc $(SRC) -o $(NAME) $(FLAGS) $(INCLUDES) $(FRAEMWORKS)
+	gcc $(SRC) libft/*.c denis/*.c -o $(NAME) $(FLAGS) $(INCLUDES) $(FRAEMWORKS)
+go:
+	./cub3D maps/1.cub
 
 clean:
 	@/bin/rm -f $(NAME)

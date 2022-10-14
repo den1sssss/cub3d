@@ -17,6 +17,9 @@ typedef struct	s_data {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+
+	int		win_w;
+	int		win_h;
 }				t_data;
 
 typedef struct game
@@ -32,7 +35,12 @@ typedef struct game
     char    *bottom;
     char    *top;
     char	**map;
-}	t_game;
+}			t_game;
+
+
+
+
+
 
 typedef struct s_player
 {
@@ -41,6 +49,19 @@ typedef struct s_player
 	int	dist;
 	float	angle;
 }	t_player;
+
+typedef struct t_map
+{
+	t_player	*player;
+	t_game		*game;
+	float		scale;
+	
+	int	w;
+	int	h;
+}				t_map;
+
+
+
 
 //gnl
 // int		ft_strlenn(char *str);
@@ -86,6 +107,7 @@ int	check_n(int i, t_game *game, char **map_elem);
 
 
 //main.c
+void denispart(t_game *game,char **argv);
 void print_error(char *str);
 void error_and_close(char *str,int fd);
 
