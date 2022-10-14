@@ -40,6 +40,12 @@ void check_params(t_game *game)
     if(check_extention(game))
         print_error("Error: wrong extention\n");
     check_permission(game); // раскомментить потом
+    check_color(game,game->bottom,'F');
+    check_color(game,game->top,'C');
+    printf("FLOOR = %d",game->floor);
+    printf("FLOOR = %d",game->ceiling);
+
+
 }
 //get_params
 void parse_param_value(char **param,int *i,t_game *game)
@@ -127,10 +133,10 @@ int is_complete(t_game *game)
 }
 void parse(t_game *game)
 {
-    int i;
-
     if(game)
         printf("\n--------\ncool.Parsing started...\n-------\n");
+    int i;
+
 	i = 0;
 	while (game->file[i])
 	{

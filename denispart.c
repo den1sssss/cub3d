@@ -103,6 +103,8 @@ void denispart(t_game *game,char **argv)
 	printf("\nplr_ch = %c",game->plr_ch);
 	printf("\nplr_x = %d",game->plr_x);
 	printf("\nplr_y = %d",game->plr_y);
+	printf("\nFLOOR = %x",game->floor);
+	printf("\nCEILING = %x",game->ceiling);
     // printf("Player position: %d %d\n", game->plr_x, game->plr_y);
 	// int i;
 

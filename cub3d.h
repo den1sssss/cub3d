@@ -22,6 +22,8 @@ typedef struct game
     char    *file;
     char    *bottom;
     char    *top;
+    int     floor;//new
+    int     ceiling;//new
     char	**map;
 }	t_game;
 
@@ -56,6 +58,7 @@ void	init_data(t_game *game);
 void read_file(t_game *game,char *argv);
 void player_position(t_game *game);
 int is_player(char c);
+void free_exit(t_game *game);
 
 //parse.c
 void    parse(t_game *game);
@@ -72,7 +75,10 @@ int get_map_size(int i, t_game *game);
 void parse_map(int i,t_game *game);
 int	check_n(int i, t_game *game, char **map_elem);
 //
-
+//check_color.c
+void check_color(t_game *game, char *str, char color);
+void	check_numbers(char **str);
+int	create_trgb(int t, int r, int g, int b);
 
 //main.c
 void print_error(char *str);

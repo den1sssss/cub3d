@@ -34,7 +34,9 @@ void parse_map(int i, t_game * game)
     printf("\nMap parsing started\n");
     while(game->file[i] && (game->file[i] == ' ' ||  \
     game->file[i] == '\t' || game->file[i] == '\n'))
+	{
         i++;
+	}
 	save_i = i;
 	size = get_map_size(i, game);
     printf("SIZE = %d",size);
