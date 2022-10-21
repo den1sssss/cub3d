@@ -7,7 +7,7 @@
 #include <math.h>
 #include <unistd.h>
 #include "libft/libft.h"
-#include "mlx.h"
+#include "MLX/mlx.h"
 
 // #  define BUFFER_SIZE 1
 
@@ -24,6 +24,7 @@ typedef struct	s_data {
 
 typedef struct game
 {
+	t_data	*data;
     char    plr_ch;
     int     plr_x;
     int     plr_y;
@@ -32,36 +33,68 @@ typedef struct game
     char	*w;
     char	*e;
     char    *file;
-    char    *bottom;
-    char    *top;
+    char	*bottom;
+    char	  *top;
     char	**map;
+	int		map_w;
+	int		map_h;
+	int		block_size;
 }			t_game;
 
 
-
+typedef	struct s_wall
+{
+	t_player	*player;
+	int			block_size;
+	int			dist_real;
+	int			dist_vertical;
+	int			dist_horizontal;
+	int			dist_wall;
+	int			inter_x;
+	int			inter_y;
+	int			dx;
+	int			dy;
+	int			x_grid;
+	int			y_grid;
+	
+	
+	
+}			t_wall;
 
 
 
 typedef struct s_player
 {
+	t_data		*data;
+	t_game		*game;
+	t_wall		*wall;
+	
+//	int		block_size;
+	double	view_angle;
+	double	delta_angle;
 	int	x;
 	int	y;
-	int	dist;
-	float	angle;
+	
+	double	angle;
+
+	int		wall_dist;
+	int		ray_dist;
+	
 }	t_player;
 
-typedef struct t_map
+
+typedef struct s_minimap
 {
 	t_player	*player;
 	t_game		*game;
-	float		scale;
-	
-	int	w;
-	int	h;
-}				t_map;
-
-
-
+	t_data		*data;
+	int			color_wall;
+	int			color_player;
+	int			color_space;
+	int			pix_per_block; //pixels per block
+	int			w;
+	int			h;
+}	t_minimap;
 
 //gnl
 // int		ft_strlenn(char *str);
@@ -115,12 +148,24 @@ void error_and_close(char *str,int fd);
 
 
 
+
 //andrey part
 void	draw_background(t_data *img, int color_ceil, int color_floor, int win_w, int win_h);
 
+//events
 int	ft_esc(int key);
 int	ft_cross_button(int key);
+
+//drawing tools
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int	create_trgb(int t, int r, int g, int b);
+
+//minimap
+void	draw_minimap(t_minimap *minimap);
+
+//funcs
+int	ft_min(int a, int b);
+int	ft_max(int a, int b);
 
 
 

@@ -129,8 +129,8 @@ void parse(t_game *game)
 {
     int i;
 
-    if(game)
-        printf("\n--------\ncool.Parsing started...\n-------\n");
+//    if(game)
+//        printf("\n--------\ncool.Parsing started...\n-------\n");
 	i = 0;
 	while (game->file[i])
 	{
@@ -140,13 +140,13 @@ void parse(t_game *game)
 		i++;
 	}
     check_params(game);
-    printf("Parse results:\n");
-    printf("n = %s\n",game->n);
-    printf("s = %s\n",game->s);
-    printf("w = %s\n",game->w);
-    printf("e = %s\n",game->e);
-    printf("bottom = %s\n",game->bottom);
-    printf("top= %s\n",game->top);
+//    printf("Parse results:\n");
+//    printf("n = %s\n",game->n);
+//    printf("s = %s\n",game->s);
+//    printf("w = %s\n",game->w);
+//    printf("e = %s\n",game->e);
+//    printf("bottom = %s\n",game->bottom);
+//    printf("top= %s\n",game->top);
 	parse_map(i, game);
 
 }

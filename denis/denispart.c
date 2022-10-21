@@ -80,7 +80,7 @@ void read_file(t_game *game,char *argv)
     }
     current_file = game->file;
     game->file = ft_strjoin(current_file, newstr);
-    printf("readfile:\n%s",game->file); // test
+//    printf("readfile:\n%s",game->file); // test
 	// printf("curr= %s\n",current_file); // test
     free(current_file);
     free(newstr);
@@ -97,9 +97,9 @@ void denispart(t_game *game,char **argv)
     //
 	parse(game);
 	player_position(game);
-	printf("\nplr_ch = %c",game->plr_ch);
-	printf("\nplr_x = %d",game->plr_x);
-	printf("\nplr_y = %d",game->plr_y);
+//	printf("\nplr_ch = %c",game->plr_ch);
+//	printf("\nplr_x = %d",game->plr_x);
+//	printf("\nplr_y = %d",game->plr_y);
     // printf("Player position: %d %d\n", game->plr_x, game->plr_y);
 	// int i;
 

@@ -52,23 +52,66 @@ int	big_str_print(char **str)
 //	return (0);
 //}
 
-typedef struct t_map
+//typedef struct t_map
+//{
+//	t_player	*player;
+//	t_game		*game;
+//	float		scale;
+//
+
+//	int	w;
+//	int	h;
+//}				t_map;
+
+void	find_player_x_y_angle(int x, int y, t_player *player, t_game *game, t_wall *wall)
 {
-	t_player	*player;
-	t_game		*game;
-	float		scale;
+	player->game = game;
+	player->data = game->data;
+	player->wall = wall;
 	
-	int	w;
-	int	h;
-}				t_map;
+	player->angle = M_PI * 200; //просто очень большой угол с запасом
+	if (game->map[y][x] == 'N')
+		player->angle += M_PI * 1.5;
+	else if (game->map[y][x] == 'W')
+		player->angle += M_PI;
+	else if (game->map[y][x] == 'S')
+		player->angle += M_PI * 0.5;
+	player->x = x * game->block_size;
+	player->y = y * game->block_size;
+	player->view_angle = M_PI / 3; //угол обзора можно попробовать разным
+	player->delta_angle = player->view_angle / game->map_w;
+}
+
+
+
+void	player_init(t_player *player, t_game *game, t_wall *wall) //поставить в начале мэйна после парсинга сразу
+{
+	int	x;
+	int	y;
+
+	y = -1;
+	while (game->map[++y])
+	{
+		x = -1;
+		while (game->map[y][++x])
+		{
+			if (game->map[y][x] == 'N' || game->map[y][x] == 'W' \
+				|| game->map[y][x] == 'E' || game->map[y][x] == 'S')
+			{
+				find_player_x_y_angle(x, y, player, game, wall);
+				break ;
+			}
+		}
+	}
+}
 
 int	main(int argc, char **argv)
 {
 	void	*mlx;
 	void	*mlx_win;
-	t_data	img;
+	t_data	*data;
 	t_player	*player;
-	t_map	*map;
+	t_minimap	*minimap;
 	float	fov;
 	float	pov;
 	//projection plane - размеры окна
@@ -76,33 +119,53 @@ int	main(int argc, char **argv)
 	//parsing start
 	t_game *game;
 	game = (t_game *)malloc(sizeof(t_game));
+	game->block_size = 64; //можно попробовать разным, степень двойки желательно
 	denispart(game, argv);
 //	game->map = ft_split("        1111111111111111111111111\n1000000000110000000000001\n   1011000001110000000000001\n   1001000000000000000000001\n11111111011000001110000000000001\n100000000011000001110111111111111\n11110111111111011100000010001\n11110111111111011101010010001\n11000000110101011100000010001\n10000000000000001100000010001\n10000000000000001101010010001\n11000001110101011111011110N01\n11110111 1110101 101111010001\n11111111 1111111 111111111111", '\n');
 	//parsing end
 //	big_str_print(game->map);
 
-
-	player = malloc(sizeof(t_player *));
-	map = malloc(sizeof(t_map *));
-
-	
-	int color = 0x00FFFFFF; //0,5626
-	int	win_w = 700;
-	int	win_h = 700;
-	
-	
-	int	color_ceil = 0x000000FF;
-	int	color_floor = 0x00FFFF00;
-	
+	data = malloc(sizeof(t_data));
+	player = malloc(sizeof(t_player));
+	minimap = malloc(sizeof(t_minimap));
+	wall = malloc(sizeof(t_wall));
 	
 
-	player->angle = 0.7;
-	player->x = 200;
-	player->y = 200;
-	player->dist = 100;
+
+	//data_init
+//	int color = 0x00FFFFFF; //0,5626
+	data->win_w = 1920;
+	data->win_h = 1080;
 	
-	map->player = player;
-	map->game = game;
+	//game_init
+	game->map_w = 33; //для map = 1.cub
+	game->map_h = 14;
+	
+	int	color_ceil = create_trgb(0, 0, 0, 255);
+	int	color_floor = create_trgb(0, 0, 255, 255);
+	
+	
+	player_init(player, game, wall);
+	
+	minimap->player = player;
+	minimap->game = game;
+	minimap->data = data;
+	minimap->pix_per_block = ft_min(data->win_h, data->win_w) / (4 * ft_max(game->map_w, game->map_h));
+	printf("pix = %d\n", minimap->pix_per_block);
+	minimap->color_wall =  create_trgb(127, 255, 255, 255);
+	minimap->color_player =  create_trgb(0, 255, 0, 0);
+	minimap->color_space =  create_trgb(255, 255, 255, 255);
+	
+//	printf("win_h = %d\nwin_w = %d\n", data->win_h, data->win_h);
+//	printf("minimap_h = %d\nmap_w = %d\n", game->map_h, game->map_w);
+//	printf("znam = %d\n", 4 * ft_max(game->map_w, game->map_h));
+//	printf("pix_per_block = %d", minimap->block_scale);
+
+	
+	//player_init
+
+	
+	
 //	map->
 //	float	player_cos = player_x / dist;
 //	float	player_sin = player_y / dist;
@@ -110,29 +173,31 @@ int	main(int argc, char **argv)
 	
  
 
-//	a = (color >> 24) & 255;
+	//part to make window
 	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, win_w, win_h, "Hello world!");
-	img.img = mlx_new_image(mlx, win_w, win_h);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
+	mlx_win = mlx_new_window(mlx, data->win_w, data->win_h, "Hello world!");
+	data->img = mlx_new_image(mlx, data->win_w, data->win_h);
+	data->addr = mlx_get_data_addr(data->img, &data->bits_per_pixel, &data->line_length,
+								&data->endian);
 	
 	
 	
 
-	draw_background(&img, color_ceil, color_floor, win_w, win_h);
+	
+	
+
+	
+	//draw background
+	draw_background(data, color_ceil, color_floor, data->win_w, data->win_h);
+	
+	//draw minimap
+	draw_minimap(minimap);
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	//кнопки крест и esc
-	mlx_hook(mlx_win, 2, 0, ft_esc, &img);
-	mlx_hook(mlx_win, 17, 0, ft_cross_button, &img);
+	//turning on window and events
+	mlx_put_image_to_window(mlx, mlx_win, data->img, 0, 0);
+	mlx_hook(mlx_win, 2, 0, ft_esc, data);
+	mlx_hook(mlx_win, 17, 0, ft_cross_button, data);
 	mlx_loop(mlx);
 }

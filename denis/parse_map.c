@@ -31,13 +31,13 @@ void parse_map(int i, t_game * game)
 	int	j;
 
     j = 0;
-    printf("\nMap parsing started\n");
+//    printf("\nMap parsing started\n");
     while(game->file[i] && (game->file[i] == ' ' ||  \
     game->file[i] == '\t' || game->file[i] == '\n'))
         i++;
 	save_i = i;
 	size = get_map_size(i, game);
-    printf("SIZE = %d",size);
+//    printf("SIZE = %d",size);
 	i = save_i;
 	game->map = (char **)malloc(sizeof(char *) * (size + 2));
 	while (i > 0 && game->file[i - 1] != '\n')
@@ -49,9 +49,9 @@ void parse_map(int i, t_game * game)
 	}
 	// game->map[j] = NULL;
 	//
-	printf("\n------MAP-----\n");
-	for(i = 0; i < size; i++)
-		printf("%s\n",game->map[i]);
-	printf("------MAP-----\n");
+//	printf("\n------MAP-----\n");
+//	for(i = 0; i < size; i++)
+//		printf("%s\n",game->map[i]);
+//	printf("------MAP-----\n");
 	//
 }
