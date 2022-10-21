@@ -34,9 +34,11 @@ SRC=*.c
 INCLUDES=libft/libft.a MLX/libmlx.a
 
 all:
-	gcc $(SRC) libft/*.c denis/*.c -o $(NAME) $(FLAGS) $(INCLUDES) $(FRAEMWORKS)
+	gcc -g $(SRC) libft/*.c denis/*.c -o $(NAME) $(FLAGS) $(INCLUDES) $(FRAEMWORKS)
 go:
 	./cub3D maps/1.cub
+lldb:
+	lldb ./cub3D maps/1.cub
 
 clean:
 	@/bin/rm -f $(NAME)

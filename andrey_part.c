@@ -8,14 +8,19 @@ int	big_str_print(char **str)
 
 	if (!str || !(*str))
 		return (printf("print_big_str error: no str!\n"));
+	i = 0;
 	while (str[i])
 	{
+		printf("[i = %d]\n", i);
 		j = 0;
 		while (str[i][j])
-			printf("%c", str[i][j++]);
+			printf("%c ", str[i][j++]);
+		printf("\n");
 		i++;
 	}
-	return (0);
+	printf("i = %d\n", i);
+//	return (0);
+	exit(0);
 }
 
 //void	draw_player(t_data *img, t_player *player)
@@ -80,6 +85,7 @@ void	find_player_x_y_angle(int x, int y, t_player *player, t_game *game, t_wall 
 	player->y = y * game->block_size;
 	player->view_angle = M_PI / 3; //угол обзора можно попробовать разным
 	player->delta_angle = player->view_angle / game->map_w;
+	player->y_horizon = game->data->win_h / 2;
 }
 
 
@@ -110,6 +116,7 @@ int	main(int argc, char **argv)
 	void	*mlx;
 	void	*mlx_win;
 	t_data	*data;
+	t_wall *wall;
 	t_player	*player;
 	t_minimap	*minimap;
 	float	fov;
@@ -123,7 +130,7 @@ int	main(int argc, char **argv)
 	denispart(game, argv);
 //	game->map = ft_split("        1111111111111111111111111\n1000000000110000000000001\n   1011000001110000000000001\n   1001000000000000000000001\n11111111011000001110000000000001\n100000000011000001110111111111111\n11110111111111011100000010001\n11110111111111011101010010001\n11000000110101011100000010001\n10000000000000001100000010001\n10000000000000001101010010001\n11000001110101011111011110N01\n11110111 1110101 101111010001\n11111111 1111111 111111111111", '\n');
 	//parsing end
-//	big_str_print(game->map);
+	
 
 	data = malloc(sizeof(t_data));
 	player = malloc(sizeof(t_player));
@@ -134,13 +141,16 @@ int	main(int argc, char **argv)
 
 	//data_init
 //	int color = 0x00FFFFFF; //0,5626
-	data->win_w = 1920;
-	data->win_h = 1080;
+	data->win_w = 1000;
+	data->win_h = 800;
+
 	
 	//game_init
 	game->map_w = 33; //для map = 1.cub
 	game->map_h = 14;
-	
+	game->data = data;
+	game->map[14] = NULL;
+//	big_str_print(game->map);
 	int	color_ceil = create_trgb(0, 0, 0, 255);
 	int	color_floor = create_trgb(0, 0, 255, 255);
 	
@@ -192,7 +202,7 @@ int	main(int argc, char **argv)
 	
 	//draw minimap
 	draw_minimap(minimap);
-	
+	draw_walls(player, wall);
 	
 	
 	//turning on window and events

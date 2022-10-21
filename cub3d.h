@@ -10,6 +10,7 @@
 #include "MLX/mlx.h"
 
 // #  define BUFFER_SIZE 1
+typedef struct s_player t_player;
 
 typedef struct	s_data {
 	void	*img;
@@ -45,17 +46,22 @@ typedef struct game
 typedef	struct s_wall
 {
 	t_player	*player;
+	char		**map;
+	double		angle;
+	double		cast_angle;
 	int			block_size;
-	int			dist_real;
 	int			dist_vertical;
 	int			dist_horizontal;
-	int			dist_wall;
+	int			dist_proj; //minimum of horiz and vert
+	int			dist_real;
+	int			wall_height;
 	int			inter_x;
 	int			inter_y;
 	int			dx;
 	int			dy;
 	int			x_grid;
 	int			y_grid;
+	int			color;
 	
 	
 	
@@ -63,7 +69,7 @@ typedef	struct s_wall
 
 
 
-typedef struct s_player
+struct s_player
 {
 	t_data		*data;
 	t_game		*game;
@@ -74,13 +80,15 @@ typedef struct s_player
 	double	delta_angle;
 	int	x;
 	int	y;
+	int	y_horizon;
 	
 	double	angle;
 
 	int		wall_dist;
 	int		ray_dist;
 	
-}	t_player;
+	
+};
 
 
 typedef struct s_minimap
@@ -163,9 +171,13 @@ int	create_trgb(int t, int r, int g, int b);
 //minimap
 void	draw_minimap(t_minimap *minimap);
 
+//walls
+void	draw_walls(t_player *player, t_wall *wall);
+
 //funcs
 int	ft_min(int a, int b);
 int	ft_max(int a, int b);
+int	ft_abs(int x);
 
 
 

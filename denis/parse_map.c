@@ -53,5 +53,6 @@ void parse_map(int i, t_game * game)
 //	for(i = 0; i < size; i++)
 //		printf("%s\n",game->map[i]);
 //	printf("------MAP-----\n");
+//	game->map[size] = NULL;
 	//
 }
