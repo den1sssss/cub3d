@@ -20,3 +20,26 @@ int	ft_abs(int x)
 		return (-x);
 	return (x);
 }
+
+double	rup_d(double x)
+{
+	return ((double)((int)x / 1 + 1));
+}
+
+
+double	dup_d(double x)
+{
+	return ((double)((int)x / 1));
+}
+
+int	rup_i(int x)
+{
+	return (x / 1 + 1);
+}
+
+
+
+int	dup_i(int x)
+{
+	return (x / 1);
+}

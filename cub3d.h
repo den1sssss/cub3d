@@ -9,6 +9,9 @@
 #include "libft/libft.h"
 #include "MLX/mlx.h"
 
+#define VERTICAL 100
+#define HORIZON 101
+
 // #  define BUFFER_SIZE 1
 typedef struct s_player t_player;
 
@@ -64,6 +67,11 @@ typedef	struct s_wall
 	int			color;
 	
 	
+	double		tan;
+	
+	int i;
+	
+	
 	
 }			t_wall;
 
@@ -86,6 +94,8 @@ struct s_player
 
 	int		wall_dist;
 	int		ray_dist;
+	
+	int		eps;
 	
 	
 };
@@ -179,6 +189,11 @@ int	ft_min(int a, int b);
 int	ft_max(int a, int b);
 int	ft_abs(int x);
 
+double	rup_d(double x);
+double	dup_d(double x);
+int	rup_i(int x);
+int	dup_i(int x);
+double	rest_d(double x, double y);
 
 
 #endif
