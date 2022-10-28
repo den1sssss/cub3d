@@ -22,7 +22,7 @@ int main(int argc, char **argv)
         if (!game)
             print_error("Error: cannot allocate memory\n");
         denispart(game,argv);
-        // andreypart();
+        andreypart(game);
     }   
     return (0);
 }

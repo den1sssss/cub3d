@@ -1,8 +1,8 @@
 #include "cub3d.h"
 
-int	create_trgb(int t, int r, int g, int b)
+int	create_trgb( int r, int g, int b)
 {
-	return (t << 24 | r << 16 | g << 8 | b);
+	return ( r << 16 | g << 8 | b);
 }
 void	check_numbers(char **str)
 {
@@ -44,8 +44,8 @@ void check_color(t_game *game, char *str, char color)
 	if (r > 255 || g > 255 || b > 255)
         print_error("Error: incorrect color values");
     if (color == 'F')
-		game->floor = create_trgb(255, r, g, b);
+		game->floor = create_trgb( r, g, b);
 	else if (color == 'C')
-		game->ceiling = create_trgb(255, r, g, b);
+		game->ceiling = create_trgb( r, g, b);
     free(param);
 }
