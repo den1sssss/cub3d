@@ -120,6 +120,7 @@ typedef struct		s_raycast
 // char	*ostatok(char *str, int fd);
 // char	*strochka(char *str);
 // char	*get_next_line(int fd);
+void ft_freemap(t_game *game);
 int     get_next_line(int fd, char **line);
 // char	*cut_next_line(char *line);
 // char	*push_line(char *line);
@@ -163,6 +164,7 @@ int     get_max_width(t_game *game);
 void    check_color(t_game *game, char *str, char color);
 void    check_numbers(char **str);
 int     create_trgb(int r, int g, int b);
+void	free_param(char **param);
 
 //main.c
 void    print_error(char *str);
@@ -202,7 +204,7 @@ void	ft_calc_step(t_raycast *rc);
 void	ft_calc_ray_sub(t_raycast *rc);
 void	ft_calc_ray(t_raycast *rc);
 
-
+void ft_kekfree(char **map,int n);
 
 
 #endif

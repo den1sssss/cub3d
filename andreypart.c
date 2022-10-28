@@ -43,6 +43,19 @@ void	ft_init_sub(t_raycast *rc)
     //rc->config->map = NULL;
 }
 //
+void ft_kekfree(char **map,int n)
+{
+    int i;
+
+    i = -1;
+   if (map)
+   {
+       while (++i < n)
+           free(map[i]);
+   }
+   free(map);
+}
+
 void andreypart(t_game *game)
 {
     t_raycast	rc;
@@ -62,7 +75,6 @@ void andreypart(t_game *game)
 	rc.config = game;
     ft_count_lines(&rc);
 	ft_mlx(&rc);
-
-
+    // ft_kekfree(rc.config->map,rc.nblines);
 
 }

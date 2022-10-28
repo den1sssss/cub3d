@@ -22,6 +22,18 @@ void	check_numbers(char **str)
 		i++;
 	}
 }
+void	free_param(char **param)
+{
+	int	i;
+
+	i = 0;
+	if (param)
+	{
+		while (param[i])
+			free(param[i++]);
+		free(param);
+	}
+}
 void check_color(t_game *game, char *str, char color)
 {
     char		**param;
@@ -47,5 +59,5 @@ void check_color(t_game *game, char *str, char color)
 		game->floor = create_trgb( r, g, b);
 	else if (color == 'C')
 		game->ceiling = create_trgb( r, g, b);
-    free(param);
+    free_param(param);
 }

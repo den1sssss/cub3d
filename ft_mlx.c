@@ -117,6 +117,7 @@ int		ft_exit(t_raycast *rc)
         mlx_destroy_image(rc->data.mlx_ptr, rc->texture[3].img);
     if (rc->data.mlx_win)
         mlx_destroy_window(rc->data.mlx_ptr, rc->data.mlx_win);
+    // ft_kekfree(rc->config->map,rc->nblines);
     exit(0);
 }
 //

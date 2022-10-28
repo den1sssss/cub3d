@@ -10,6 +10,19 @@ void error_and_close(char *str,int fd)
     write(2,str,ft_strlen(str));
     exit(1);
 }
+void ft_freemap(t_game *game)
+{
+    int	i;
+
+	i = 0;
+	if (game->map)
+	{
+		while (game->map[i])
+			free(game->map[i++]);
+		free(game->map);
+	}
+    free(game);
+}
 int main(int argc, char **argv)
 {
     t_game *game;
@@ -23,6 +36,7 @@ int main(int argc, char **argv)
             print_error("Error: cannot allocate memory\n");
         denispart(game,argv);
         andreypart(game);
-    }   
+    } 
+    
     return (0);
 }
